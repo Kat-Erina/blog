@@ -8,6 +8,9 @@ import Success from "./Success";
 import useLogin from "../store/store";
 import Error from "../svg/Error";
 
+interface FormObj {
+  email: string;
+}
 const ModalWindow = () => {
   const { isVisible, toggleIsVisible } = useLogin();
   const {
@@ -20,9 +23,9 @@ const ModalWindow = () => {
   const [isStatus, setStatus] = useState<boolean>(false);
   const [statusCode, setStatusCode] = useState<number>(0);
 
-  async function onSubmit(data: object) {
+  async function onSubmit(data: FormObj) {
     try {
-      const response = await axios.post(
+      const response = await axios.post<FormObj>(
         "https://api.blog.redberryinternship.ge/api/login",
         JSON.stringify(data),
         {
@@ -33,8 +36,12 @@ const ModalWindow = () => {
         }
       );
       setStatusCode(response.status);
-    } catch (error: unknown) {
-      error.response.status === 422 ? setStatus(true) : setStatus(false);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          error.response.status === 422 ? setStatus(true) : setStatus(false);
+        }
+      }
     }
   }
 

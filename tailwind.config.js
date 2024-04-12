@@ -9,6 +9,7 @@ export default {
         violet: "#5D37F3",
         error: "#EA1919",
         correct: "#14D81C",
+        gray: "#E4E3EB",
       },
       padding: {
         "1/4": "1.25rem",
