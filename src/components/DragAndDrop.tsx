@@ -11,6 +11,7 @@ type PropsType = {
   onFileSelect: React.ChangeEventHandler<HTMLInputElement>;
   image: { name: string; url: string };
   setImage: React.Dispatch<React.SetStateAction<Image>>;
+  upload:React.ChangeEventHandler<HTMLInputElement>
 };
 const DragAndDrop = ({
   drag,
@@ -19,6 +20,7 @@ const DragAndDrop = ({
   onFileSelect,
   image,
   setImage,
+  upload
 }: PropsType) => {
   return (
     <div
@@ -42,7 +44,8 @@ const DragAndDrop = ({
                 name="file"
                 type="file"
                 className="file "
-                onChange={onFileSelect}
+                // onChange={onFileSelect}
+                onChange={upload}
               ></input>
             </div>
           </div>
